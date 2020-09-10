@@ -19,7 +19,6 @@ import static org.mockito.Mockito.when;
 
 public class CustomerServiceTest {
 
-    public static final long ID1 = 1L;
     public static final long ID = 1L;
     public static final String FIRSTNAME = "Joe";
     public static final String LASTNAME = "Buck";
@@ -85,6 +84,28 @@ public class CustomerServiceTest {
 
         //when
         CustomerDTO savedDto = customerService.createNewCustomer(customerDTO);
+
+        //then
+        assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
+        assertEquals("/api/v1/customers/"+ID, savedDto.getCustomerUrl());
+    }
+
+    @Test
+    public void saveCustomerByDTO(){
+
+        //given
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstname("Jim");
+
+        Customer savedCustomer = new Customer();
+        savedCustomer.setFirstname(customerDTO.getFirstname());
+        savedCustomer.setLastname(customerDTO.getLastname());
+        savedCustomer.setId(ID);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+
+        //when
+        CustomerDTO savedDto = customerService.saveCustomerByDTO(ID, customerDTO);
 
         //then
         assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
