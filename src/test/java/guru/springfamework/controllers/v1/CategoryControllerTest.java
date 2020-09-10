@@ -1,7 +1,6 @@
 package guru.springfamework.controllers.v1;
 
 import guru.springfamework.api.v1.model.CategoryDTO;
-import guru.springfamework.domain.Category;
 import guru.springfamework.services.CategoryService;
 import guru.springfamework.services.ResourceNotFoundException;
 import org.junit.Before;
