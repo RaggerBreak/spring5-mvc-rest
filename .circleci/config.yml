@@ -26,22 +26,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn dependency:go-offline
-
-      - run: mvn cobertura:cobertura
-
+      - run: mvn install
+      - run: mvn test
+      - run: "mvn cobertura:cobertura"
+      - run: "bash <(curl -s https://codecov.io/bash) -t 4d64e611-f8c3-4c8c-8d58-f46f85fdec06"
       - save_cache:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      # run tests! and gen code coverage
-#      - run: mvn integration-test cobertura:cobertura
-#
-#      - store_test_results:
-#          path: target/surefire-reports
-#
-#
-      - run:
-          name: Send to CodeCov
-          command: bash <(curl -s https://codecov.io/bash) -t 4d64e611-f8c3-4c8c-8d58-f46f85fdec06
