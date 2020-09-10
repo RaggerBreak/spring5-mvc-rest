@@ -28,8 +28,8 @@ jobs:
 
       - run: mvn install
       - run: mvn test
-      - run: "mvn cobertura:cobertura"
-      - run: "bash <(curl -s https://codecov.io/bash) -t 4d64e611-f8c3-4c8c-8d58-f46f85fdec06"
+      - run: mvn cobertura:cobertura
+      - run: bash <(curl -s https://codecov.io/bash) -t 4d64e611-f8c3-4c8c-8d58-f46f85fdec06
       - save_cache:
           paths:
             - ~/.m2
