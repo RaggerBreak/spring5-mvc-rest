@@ -65,7 +65,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(
                     get("/api/v1/customers/")
-                        .contentType(MediaType.APPLICATION_JSON))
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers", hasSize(2)));
     }
@@ -83,7 +84,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(
                     get(CustomerController.BASE_URL + "/1")
-                        .contentType(MediaType.APPLICATION_JSON))
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstname", equalTo(FIRSTNAME)));
     }
@@ -105,6 +107,7 @@ public class CustomerControllerTest {
 
         mockMvc.perform(
                     post("/api/v1/customers/")
+                            .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
@@ -129,8 +132,9 @@ public class CustomerControllerTest {
         //when/then
         mockMvc.perform(
                     put(CustomerController.BASE_URL + "/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(customer)))
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(asJsonString(customer)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstname", equalTo("Fred")))
                 .andExpect(jsonPath("$.lastname", equalTo("Flintstone")))
@@ -154,6 +158,7 @@ public class CustomerControllerTest {
         //when/then
         mockMvc.perform(
                     patch(CustomerController.BASE_URL + "/1")
+                            .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(asJsonString(customer)))
                 .andExpect(status().isOk())
@@ -167,6 +172,7 @@ public class CustomerControllerTest {
 
         mockMvc.perform(
                     delete(CustomerController.BASE_URL + "/1")
+                            .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -180,7 +186,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(
                     get(CustomerController.BASE_URL + "/111")
-                        .contentType(MediaType.APPLICATION_JSON))
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
