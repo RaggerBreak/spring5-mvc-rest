@@ -16,10 +16,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
+/**
+ * Created by jt on 10/3/17.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class CustomerServiceImplIT {
@@ -37,24 +42,24 @@ public class CustomerServiceImplIT {
 
     @Before
     public void setUp() throws Exception {
-        System.out.println("Loading customer Data");
+        System.out.println("Loading Customer Data");
         System.out.println(customerRepository.findAll().size());
 
         //setup data for testing
         Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
         bootstrap.run(); //load data
 
-        customerService = new CustomerServiceImpl(customerRepository, CustomerMapper.INSTANCE);
+        customerService = new CustomerServiceImpl(CustomerMapper.INSTANCE, customerRepository);
     }
 
     @Test
-    public void patchCustomerUpdateFirstName() {
+    public void patchCustomerUpdateFirstName() throws Exception {
         String updatedName = "UpdatedName";
         long id = getCustomerIdValue();
 
         Customer originalCustomer = customerRepository.getOne(id);
         assertNotNull(originalCustomer);
-        //save original first/last name
+        //save original first name
         String originalFirstName = originalCustomer.getFirstname();
         String originalLastName = originalCustomer.getLastname();
 
@@ -72,12 +77,13 @@ public class CustomerServiceImplIT {
     }
 
     @Test
-    public void patchCustomerUpdateLastName() {
+    public void patchCustomerUpdateLastName() throws Exception {
         String updatedName = "UpdatedName";
         long id = getCustomerIdValue();
 
         Customer originalCustomer = customerRepository.getOne(id);
         assertNotNull(originalCustomer);
+
         //save original first/last name
         String originalFirstName = originalCustomer.getFirstname();
         String originalLastName = originalCustomer.getLastname();

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 @EnableSwagger2
 @Configuration
-public class SwaggerConfig {
+public class SwaggerConfig { //} extends WebMvcConfigurationSupport {
 
     @Bean
     public Docket api(){
@@ -29,7 +29,8 @@ public class SwaggerConfig {
 
     private ApiInfo metaData(){
 
-        Contact contact = new Contact("Ragger Break", "", "ragger.break@gmail.com");
+        Contact contact = new Contact("John Thompson", "https://springframework.guru/about/",
+                "john@springfrmework.guru");
 
         return new ApiInfo(
                 "Spring Framework Guru",
@@ -39,7 +40,14 @@ public class SwaggerConfig {
                 contact,
                 "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0",
-                new ArrayList<>()
-        );
+                new ArrayList<>());
     }
+//    @Override
+//    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("swagger-ui.html")
+//                .addResourceLocations("classpath:/META-INF/resources/");
+//
+//        registry.addResourceHandler("/webjars/**")
+//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+//    }
 }

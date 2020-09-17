@@ -1,6 +1,5 @@
 package guru.springframework.services;
 
-import guru.springframework.model.CustomerDTO;
 import guru.springframework.api.v1.mapper.VendorMapper;
 import guru.springframework.api.v1.model.VendorDTO;
 import guru.springframework.api.v1.model.VendorListDTO;
@@ -41,7 +40,7 @@ public class VendorServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        vendorService = new VendorServiceImpl(vendorRepository, VendorMapper.INSTANCE);
+        vendorService = new VendorServiceImpl(VendorMapper.INSTANCE, vendorRepository);
     }
 
     @Test
@@ -177,5 +176,4 @@ public class VendorServiceImplTest {
         vendor.setId(ID_2);
         return vendor;
     }
-
 }

@@ -52,7 +52,7 @@ public class VendorControllerTest {
         given(vendorService.getAllVendors()).willReturn(vendorListDTO);
 
         mockMvc.perform(get(VendorController.BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON))
+                    .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vendors", hasSize(2)));
     }
@@ -74,8 +74,8 @@ public class VendorControllerTest {
         given(vendorService.createNewVendor(vendorDTO_1)).willReturn(vendorDTO_1);
 
         mockMvc.perform(post(VendorController.BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(vendorDTO_1)))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJsonString(vendorDTO_1)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", equalTo(vendorDTO_1.getName())));
     }
@@ -94,8 +94,7 @@ public class VendorControllerTest {
 
     @Test
     public void patchVendor() throws Exception {
-
-        given(vendorService.patchVendor(anyLong(), any(VendorDTO.class))).willReturn(vendorDTO_1);
+        given(vendorService.saveVendorByDTO(anyLong(), any(VendorDTO.class))).willReturn(vendorDTO_1);
 
         mockMvc.perform(patch(VendorController.BASE_URL + "/1")
                 .contentType(MediaType.APPLICATION_JSON)

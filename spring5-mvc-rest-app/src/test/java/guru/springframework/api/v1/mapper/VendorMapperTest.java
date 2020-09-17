@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-
 public class VendorMapperTest {
 
     public static final String NAME = "someName";
@@ -15,7 +14,6 @@ public class VendorMapperTest {
 
     @Test
     public void vendorToVendorDTO() throws Exception {
-
         //given
         Vendor vendor = new Vendor();
         vendor.setName(NAME);
@@ -29,7 +27,6 @@ public class VendorMapperTest {
 
     @Test
     public void vendorDTOtoVendor() throws Exception {
-
         //given
         VendorDTO vendorDTO = new VendorDTO();
         vendorDTO.setName(NAME);
@@ -40,4 +37,5 @@ public class VendorMapperTest {
         //then
         assertEquals(vendorDTO.getName(), vendor.getName());
     }
+
 }

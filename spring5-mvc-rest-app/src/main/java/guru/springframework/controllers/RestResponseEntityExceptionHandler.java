@@ -1,4 +1,4 @@
-package guru.springframework.controllers.v1;
+package guru.springframework.controllers;
 
 import guru.springframework.services.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -16,5 +16,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     public ResponseEntity<Object> handleNotFoundException(Exception exception, WebRequest request){
 
         return new ResponseEntity<Object>("Resource Not Found", new HttpHeaders(), HttpStatus.NOT_FOUND);
+
     }
 }

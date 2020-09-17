@@ -11,17 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class VendorServiceImpl implements VendorService {
 
-    private final VendorRepository vendorRepository;
     private final VendorMapper vendorMapper;
+    private final VendorRepository vendorRepository;
 
-
-    public VendorServiceImpl(VendorRepository vendorRepository, VendorMapper vendorMapper) {
-        this.vendorRepository = vendorRepository;
+    public VendorServiceImpl(VendorMapper vendorMapper, VendorRepository vendorRepository) {
         this.vendorMapper = vendorMapper;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -61,20 +59,20 @@ public class VendorServiceImpl implements VendorService {
         Vendor vendorToSave = vendorMapper.vendorDTOtoVendor(vendorDTO);
         vendorToSave.setId(id);
 
-        return saveAndReturnDTO(vendorMapper.vendorDTOtoVendor(vendorDTO));
+        return saveAndReturnDTO(vendorToSave);
     }
 
     @Override
     public VendorDTO patchVendor(Long id, VendorDTO vendorDTO) {
-        return vendorRepository
-                .findById(id)
+        return vendorRepository.findById(id)
                 .map(vendor -> {
-                    if (vendorDTO.getName() != null) {
+                    //todo if more properties, add more if statements
+
+                    if(vendorDTO.getName() != null){
                         vendor.setName(vendorDTO.getName());
                     }
 
                     return saveAndReturnDTO(vendor);
-
                 }).orElseThrow(ResourceNotFoundException::new);
     }
 
@@ -83,17 +81,16 @@ public class VendorServiceImpl implements VendorService {
         vendorRepository.deleteById(id);
     }
 
-    private String getVendorUrl(Long id){
+    private String getVendorUrl(Long id) {
         return VendorController.BASE_URL + "/" + id;
     }
 
-    private VendorDTO saveAndReturnDTO(Vendor vendor){
-
+    private VendorDTO saveAndReturnDTO(Vendor vendor) {
         Vendor savedVendor = vendorRepository.save(vendor);
 
         VendorDTO returnDto = vendorMapper.vendorToVendorDTO(savedVendor);
 
-        returnDto.setVendorUrl(getVendorUrl(vendor.getId()));
+        returnDto.setVendorUrl(getVendorUrl(savedVendor.getId()));
 
         return returnDto;
     }

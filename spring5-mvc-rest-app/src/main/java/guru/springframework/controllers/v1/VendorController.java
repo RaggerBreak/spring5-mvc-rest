@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@Api(description = "This is Vendor Controller")
+@Api(description = "This is my Vendor API")
 @RestController
 @RequestMapping(VendorController.BASE_URL)
 public class VendorController {
@@ -21,7 +21,7 @@ public class VendorController {
         this.vendorService = vendorService;
     }
 
-    @ApiOperation(value = "View List of Vendors", notes = "These are some API Notes")
+    @ApiOperation(value = "View List of Vendors", notes="These are some API Notes")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public VendorListDTO getVendorList(){
@@ -53,7 +53,7 @@ public class VendorController {
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public VendorDTO patchVendor(@PathVariable Long id, @RequestBody VendorDTO vendorDTO){
-        return vendorService.patchVendor(id, vendorDTO);
+        return vendorService.saveVendorByDTO(id, vendorDTO);
     }
 
     @ApiOperation(value = "Delete a Vendor")
